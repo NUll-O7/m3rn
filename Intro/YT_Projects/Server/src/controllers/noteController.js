@@ -1,5 +1,13 @@
-export const getAllNotes = (req, res) => {
-    res.status(200).send("Got all the notes");
+import Note from '../models/Notes.js';
+
+export const getAllNotes = async (req, res) => {
+    try{
+        const Notes = await Note.find();
+        res.status(200).json(Notes);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching notes" });
+        console.error(error);
+    }
 };
 
 export const createNote = (req, res) => {
