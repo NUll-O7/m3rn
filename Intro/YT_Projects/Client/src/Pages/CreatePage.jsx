@@ -72,6 +72,11 @@ const CreatePage = () => {
                     className="textarea textarea-bordered h-32"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && e.shiftKey === false) {
+                        handleSubmit(e);
+                      }
+                    }}
                   />
                 </div>
 
