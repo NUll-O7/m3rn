@@ -1,20 +1,22 @@
-import React from 'react'
-import { Route, Router } from 'react-router'
 
-import homePage from './Pages/homePage'
-import detailPage from './Pages/detailPage'
-import createPage from './Pages/createPage'
+import React from 'react';
+import { Routes, Route } from 'react-router';
+import HomePage from './Pages/HomePage.jsx';
+import DetailPage from './Pages/DetailPage.jsx';
+import CreatePage from './Pages/CreatePage.jsx';
+
 
 const App = () => {
   return (
-    <div data-theme='forest'>
-      <Router>
-        <Route path='/' element={<homePage />} />
-        <Route path='/note/:id' element={<detailPage />} />
-        <Route path='/create' element={<createPage />} />
-      </Router>
+    <div className='relative h-full w-full overflow-hidden'>
+      <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_60%,#00FF9D40_100%)]" />
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/create' element={<CreatePage />} />
+        <Route path='/note/:id' element={<DetailPage />} />
+      </Routes>
     </div>
-  )
+  );
 }
 
 export default App
