@@ -9,7 +9,7 @@
 // - Proper HTTP status codes
 // - Error handling patterns
 
-const express = require('express');
+const express = require('../node_modules/express');
 const app = express();
 const taskRoutes = require('./routes/taskRoutes.js');
 app.listen(3050, () => console.log('Server running on port 3050'));
