@@ -5,11 +5,13 @@ import NoteCard from "../components/NoteCard";
 import NotesNotFound from "../components/NotesNotFound";
 import api from "../lib/axios";
 import toast from "react-hot-toast";
+import { useTheme } from "../context/ThemeContext.jsx";
 
 const HomePage = () => {
   const [isRateLimited, setIsRateLimited] = useState(false);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -35,12 +37,16 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-linear-to-b from-purple-900 via-pink-900 to-orange-900">
+    <div className={`min-h-screen relative overflow-hidden ${
+      isDark 
+        ? 'bg-linear-to-b from-purple-900 via-pink-900 to-orange-900' 
+        : 'bg-linear-to-b from-blue-50 via-pink-50 to-orange-50'
+    }`}>
       {/* Animated grid background */}
-      <div className="fixed inset-0 opacity-20 pointer-events-none">
+      <div className={`fixed inset-0 opacity-20 pointer-events-none`}>
         <div className="absolute inset-0" style={{
-          backgroundImage: `linear-gradient(rgba(236, 72, 153, 0.3) 2px, transparent 2px),
-                           linear-gradient(90deg, rgba(236, 72, 153, 0.3) 2px, transparent 2px)`,
+          backgroundImage: `linear-gradient(${isDark ? 'rgba(236, 72, 153, 0.3)' : 'rgba(236, 72, 153, 0.2)'} 2px, transparent 2px),
+                           linear-gradient(90deg, ${isDark ? 'rgba(236, 72, 153, 0.3)' : 'rgba(236, 72, 153, 0.2)'} 2px, transparent 2px)`,
           backgroundSize: '50px 50px',
           transform: 'perspective(500px) rotateX(60deg)',
           transformOrigin: 'center top'
@@ -48,9 +54,9 @@ const HomePage = () => {
       </div>
 
       {/* Glowing orbs */}
-      <div className="fixed top-20 left-20 w-96 h-96 bg-pink-500 rounded-full blur-[128px] opacity-30 animate-pulse pointer-events-none"></div>
-      <div className="fixed bottom-20 right-20 w-96 h-96 bg-cyan-500 rounded-full blur-[128px] opacity-30 animate-pulse pointer-events-none" style={{ animationDelay: '1s' }}></div>
-      <div className="fixed top-1/2 left-1/2 w-96 h-96 bg-purple-500 rounded-full blur-[128px] opacity-20 animate-pulse pointer-events-none" style={{ animationDelay: '2s' }}></div>
+      <div className={`fixed top-20 left-20 w-96 h-96 ${isDark ? 'bg-pink-500' : 'bg-pink-300'} rounded-full blur-[128px] ${isDark ? 'opacity-30' : 'opacity-20'} animate-pulse pointer-events-none`}></div>
+      <div className={`fixed bottom-20 right-20 w-96 h-96 ${isDark ? 'bg-cyan-500' : 'bg-cyan-300'} rounded-full blur-[128px] ${isDark ? 'opacity-30' : 'opacity-20'} animate-pulse pointer-events-none`} style={{ animationDelay: '1s' }}></div>
+      <div className={`fixed top-1/2 left-1/2 w-96 h-96 ${isDark ? 'bg-purple-500' : 'bg-purple-300'} rounded-full blur-[128px] ${isDark ? 'opacity-20' : 'opacity-10'} animate-pulse pointer-events-none`} style={{ animationDelay: '2s' }}></div>
 
       <Navbar />
 
@@ -60,13 +66,17 @@ const HomePage = () => {
         {loading && (
           <div className="text-center py-20">
             <div className="inline-block">
-              <div className="text-3xl font-bold bg-linear-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent tracking-wider animate-pulse">
+              <div className={`text-3xl font-bold bg-linear-to-r ${
+                isDark 
+                  ? 'from-pink-400 via-purple-400 to-cyan-400' 
+                  : 'from-pink-600 via-purple-600 to-cyan-600'
+              } bg-clip-text text-transparent tracking-wider animate-pulse`}>
                 LOADING NOTES...
               </div>
               <div className="mt-4 flex justify-center gap-2">
-                <div className="w-3 h-3 bg-pink-500 rounded-full animate-bounce"></div>
-                <div className="w-3 h-3 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                <div className="w-3 h-3 bg-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                <div className={`w-3 h-3 ${isDark ? 'bg-pink-500' : 'bg-pink-600'} rounded-full animate-bounce`}></div>
+                <div className={`w-3 h-3 ${isDark ? 'bg-purple-500' : 'bg-purple-600'} rounded-full animate-bounce`} style={{ animationDelay: '0.1s' }}></div>
+                <div className={`w-3 h-3 ${isDark ? 'bg-cyan-500' : 'bg-cyan-600'} rounded-full animate-bounce`} style={{ animationDelay: '0.2s' }}></div>
               </div>
             </div>
           </div>
@@ -84,7 +94,11 @@ const HomePage = () => {
       </div>
 
       {/* Scanline effect */}
-      <div className="pointer-events-none fixed inset-0 bg-linear-to-b from-transparent via-pink-500/5 to-transparent animate-[scan_8s_linear_infinite]" style={{
+      <div className={`pointer-events-none fixed inset-0 bg-linear-to-b ${
+        isDark 
+          ? 'from-transparent via-pink-500/5 to-transparent' 
+          : 'from-transparent via-pink-400/5 to-transparent'
+      } animate-[scan_8s_linear_infinite]`} style={{
         backgroundSize: '100% 200%',
         animation: 'scan 8s linear infinite'
       }}></div>
